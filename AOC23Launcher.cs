@@ -43,11 +43,32 @@ namespace AOC23
             //Grab solution's problem
             string problemName = solution.GetProblemName();
             string path = Directory.GetCurrentDirectory() + $"/{problemName}.txt";
+            if (!File.Exists(path))
+            {
+                await _logger.LogAsync(LogSeverity.Error, this, $"Problem path doesnt exist!");
+                return;
+            }
+            string problemContent = File.ReadAllText(path);
+            long elapsedTotal = stopWatch.ElapsedMilliseconds;
+            _logger.LogAsync(LogSeverity.Info, this, $"Initialized solution in {stopWatch.ElapsedMilliseconds}ms");
+            _logger.LogAsync(LogSeverity.Info, this, $"Solving problem");
 
             //Run solution
+            string result = "N/A";
+            try
+            {
+                result = solution.Solve(problemContent);
+            }
+            catch (Exception ex)
+            {
+                await _logger.LogAsync(LogSeverity.Error, this, $"Solution returned exception", ex);
+            }
 
             //Feedback result
-            
+            stopWatch.Stop();
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result : {result}");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solution completed in {stopWatch.ElapsedMilliseconds-elapsedTotal}ms");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Launcher completed in {stopWatch.ElapsedMilliseconds}ms");
         }
 
         public void Shutdown()
