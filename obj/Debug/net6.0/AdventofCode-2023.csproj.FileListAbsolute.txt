@@ -1,0 +1,15 @@
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.csproj.AssemblyReference.cache
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.GeneratedMSBuildEditorConfig.editorconfig
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.AssemblyInfoInputs.cache
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.AssemblyInfo.cs
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.csproj.CoreCompileInputs.cache
+/home/josh/Documents/AdventofCode-2023/bin/Debug/net6.0/AdventofCode-2023
+/home/josh/Documents/AdventofCode-2023/bin/Debug/net6.0/AdventofCode-2023.deps.json
+/home/josh/Documents/AdventofCode-2023/bin/Debug/net6.0/AdventofCode-2023.runtimeconfig.json
+/home/josh/Documents/AdventofCode-2023/bin/Debug/net6.0/AdventofCode-2023.dll
+/home/josh/Documents/AdventofCode-2023/bin/Debug/net6.0/AdventofCode-2023.pdb
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.dll
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/refint/AdventofCode-2023.dll
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.pdb
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.genruntimeconfig.cache
+/home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/ref/AdventofCode-2023.dll
