@@ -13,3 +13,17 @@
 /home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.pdb
 /home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/AdventofCode-2023.genruntimeconfig.cache
 /home/josh/Documents/AdventofCode-2023/obj/Debug/net6.0/ref/AdventofCode-2023.dll
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\bin\Debug\net6.0\AdventofCode-2023.exe
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\bin\Debug\net6.0\AdventofCode-2023.deps.json
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\bin\Debug\net6.0\AdventofCode-2023.runtimeconfig.json
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\bin\Debug\net6.0\AdventofCode-2023.dll
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\bin\Debug\net6.0\AdventofCode-2023.pdb
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.AssemblyInfoInputs.cache
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.AssemblyInfo.cs
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.csproj.CoreCompileInputs.cache
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.dll
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\refint\AdventofCode-2023.dll
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.pdb
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\AdventofCode-2023.genruntimeconfig.cache
+C:\Users\joahg\OneDrive\Documents\Elite Pixel Studios\AdventofCode-2023\obj\Debug\net6.0\ref\AdventofCode-2023.dll

@@ -14,7 +14,7 @@ namespace AOC23
         public static void Main(string[] args)
         {
             AOC23Launcher program = new();
-            program.MainAsync();
+            Task.WaitAll(program.MainAsync());
             program.Shutdown();
         }
 
@@ -23,7 +23,7 @@ namespace AOC23
             _logger = new InnoLogger();
         }
 
-        private readonly Type _solutionTarget = typeof(Solution);
+        private readonly Type _solutionTarget = typeof(TestSolution);
         private Solution solution;
 
         public async Task MainAsync()
@@ -42,7 +42,7 @@ namespace AOC23
 
             //Grab solution's problem
             string problemName = solution.GetProblemName();
-            string path = Directory.GetCurrentDirectory() + $"/{problemName}.txt";
+            string path = Directory.GetCurrentDirectory() + $"/Problems/{problemName}.txt";
             if (!File.Exists(path))
             {
                 await _logger.LogAsync(LogSeverity.Error, this, $"Problem path doesnt exist!");
