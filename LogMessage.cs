@@ -17,9 +17,18 @@ namespace AOC23
             Exception = exception;
         }
 
-        public string ToString(int padSource=20)
+        public string ToString(int severityPadSource, int senderPadSource=20)
         {
-            return $"{Severity} : {Sender} : {Message}{(Exception != null ? $"\n{Exception}" : "")}";
+            return $"{GetPaddedString(Severity.ToString(), severityPadSource)} : {GetPaddedString(Sender, senderPadSource)} : {Message}{(Exception != null ? $"\n{Exception}" : "")}";
+        }
+
+        public string GetPaddedString(string source, int targetLength)
+        {
+            if (source.Length > targetLength)
+            {
+                return String.Join("", source.Take(targetLength));
+            }
+            return source.PadRight(targetLength);
         }
     }
 }

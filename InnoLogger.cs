@@ -9,7 +9,8 @@ namespace AOC23
     public class InnoLogger : ILogger
     {
         private static readonly bool s_logDebug = true;
-        private static readonly int s_padSource = 20;
+        private static readonly int s_severityPadSource = 8;
+        private static readonly int s_senderPadSource = 15;
 
         public FileStream? logStream;
         public StreamWriter? streamWriter;
@@ -36,8 +37,8 @@ namespace AOC23
             if (message.Severity is LogSeverity.Debug or LogSeverity.Verbose && !s_logDebug) return;
 
             //Log to file and console
-            Console.WriteLine(message.ToString(padSource: s_padSource));
-            if (streamWriter != null) streamWriter.WriteLine(message.ToString(padSource: s_padSource));
+            Console.WriteLine(message.ToString(s_severityPadSource, s_senderPadSource));
+            if (streamWriter != null) streamWriter.WriteLine(message.ToString(s_severityPadSource, s_senderPadSource));
         }
 
         public void Shutdown(bool dispose = true)

@@ -14,6 +14,7 @@ namespace AOC23
         public static void Main(string[] args)
         {
             AOC23Launcher program = new();
+            program.TestLogger();
             Task.WaitAll(program.MainAsync());
             program.Shutdown();
         }
@@ -74,6 +75,14 @@ namespace AOC23
         public void Shutdown()
         {
             _logger.Shutdown();
+        }
+
+        public async Task TestLogger()
+        { //Enum -> string -> enum, efficient :P
+            foreach (string value in Enum.GetNames(typeof(LogSeverity)))
+            {
+                await _logger.LogAsync((LogSeverity)Enum.Parse(typeof(LogSeverity), value), this, $"{value} Test");
+            }
         }
     }
 }
