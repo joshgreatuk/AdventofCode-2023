@@ -1,3 +1,4 @@
+using AdventofCode_2023.Solutions;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,6 @@ namespace AOC23.Solutions
         public Solution(ILogger logger) => _logger = logger;
 
         public abstract string GetProblemName();
-        public abstract string Solve(string problemContents);
+        public abstract Answer Solve(string problemContents);
     }
 }

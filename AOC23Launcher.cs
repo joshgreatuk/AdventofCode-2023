@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AOC23.Solutions;
+using AdventofCode_2023.Solutions;
 
 namespace AOC23
 {
@@ -24,7 +25,7 @@ namespace AOC23
             _logger = new InnoLogger();
         }
 
-        private readonly Type _solutionTarget = typeof(TestSolution);
+        private readonly Type _solutionTarget = typeof(Day1);
         private Solution solution;
 
         public async Task MainAsync()
@@ -51,11 +52,11 @@ namespace AOC23
             }
             string problemContent = File.ReadAllText(path);
             long elapsedTotal = stopWatch.ElapsedMilliseconds;
-            _logger.LogAsync(LogSeverity.Info, this, $"Initialized solution in {stopWatch.ElapsedMilliseconds}ms");
-            _logger.LogAsync(LogSeverity.Info, this, $"Solving problem");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Initialized solution in {stopWatch.ElapsedMilliseconds}ms");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solving problem");
 
             //Run solution
-            string result = "N/A";
+            Answer result = new();
             try
             {
                 result = solution.Solve(problemContent);
@@ -67,7 +68,8 @@ namespace AOC23
 
             //Feedback result
             stopWatch.Stop();
-            await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result : {result}");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result pt1 : {result.partOne}");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result pt2 : {result.partTwo}");
             await _logger.LogAsync(LogSeverity.Info, this, $"Solution completed in {stopWatch.ElapsedMilliseconds-elapsedTotal}ms");
             await _logger.LogAsync(LogSeverity.Info, this, $"Launcher completed in {stopWatch.ElapsedMilliseconds}ms");
         }

@@ -1,3 +1,4 @@
+using AdventofCode_2023.Solutions;
 using System;
 
 namespace AOC23.Solutions
@@ -8,10 +9,10 @@ namespace AOC23.Solutions
 
         public override string GetProblemName() => "TestProblem";
 
-        public override string Solve(string problemContents)
+        public override Answer Solve(string problemContents)
         {
             _logger.Log(LogSeverity.Info, this, $"Hit Solver");
-            return problemContents;
+            return new(problemContents);
         }
     }
 }
