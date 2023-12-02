@@ -10,6 +10,10 @@ namespace AOC23.Solutions
 {
     public class Day2 : Solution
     {
+        /// <summary>
+        /// https://adventofcode.com/2023/day/2
+        /// </summary>
+       
         public Day2(ILogger logger) : base(logger) { }
         public override string GetProblemName() => "Day2";
 
