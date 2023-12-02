@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventofCode_2023.Solutions
+namespace AOC23.Solutions
 {
     public class Answer
     {

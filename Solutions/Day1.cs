@@ -1,5 +1,4 @@
-﻿using AdventofCode_2023.Solutions;
-using AOC23.Solutions;
+﻿using AOC23.Solutions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventofCode-2023", "AdventofCode-2023.csproj", "{B91F87D1-32FA-41D2-9893-79580F254EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC23", "AOC23.csproj", "{B91F87D1-32FA-41D2-9893-79580F254EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

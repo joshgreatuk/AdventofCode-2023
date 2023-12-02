@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AOC23.Solutions;
-using AdventofCode_2023.Solutions;
 
 namespace AOC23
 {
@@ -15,7 +14,7 @@ namespace AOC23
         public static void Main(string[] args)
         {
             AOC23Launcher program = new();
-            program.TestLogger();
+            // program.TestLogger();
             Task.WaitAll(program.MainAsync());
             program.Shutdown();
         }
@@ -25,7 +24,7 @@ namespace AOC23
             _logger = new InnoLogger();
         }
 
-        private readonly Type _solutionTarget = typeof(Day1);
+        private readonly Type _solutionTarget = typeof(Day2);
         private Solution solution;
 
         public async Task MainAsync()
