@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,77 +15,102 @@ namespace AOC23.Solutions
 
     public class Day5 : Solution
     {
-        public Day5(ILogger logger) : base(logger) { }
+        private readonly int arrayLength = Array.MaxLength / 2;
+        private readonly int threadCount = 12;
+
+        public Day5(ILogger logger) : base(logger) { arrayLength /= threadCount; }
         public override string GetProblemName() => "Day5";
-
-        public class SeedRange
-        {
-            public long start;
-            public long length;
-
-            public SeedRange(long start, long length)
-            {
-                this.start = start;
-                this.length = length;
-            }
-        }
 
         public override Answer Solve(string problemContents)
         {
             string[] problemSections = problemContents.Split("\r\n\r\n");
 
-            List<long> seeds = problemSections[0].Split(":")[1].Trim().Split(" ").Select(x => long.Parse(x)).ToList();
-            List<long> expandedSeeds = new();
-            for (int i=0; i < seeds.Count/2; i++)
-            {
-                long rangeStart = seeds[i*2];
-                long rangeLength = seeds[i*2+1];
+            _logger.LogAsync(LogSeverity.Info, this, "Warming up the tractor (with part 1)");
+            long[] seeds = problemSections[0].Split(":")[1].Trim().Split(" ").Select(x => long.Parse(x)).ToArray();
+            seeds = ProcessSeeds(seeds, problemSections);
 
-                for (int j=0; j < rangeLength; j++)
+            _logger.LogAsync(LogSeverity.Info, this, $"Preparing for memory hell of {arrayLength} length arrays");
+            long startingMemory = Process.GetCurrentProcess().PrivateMemorySize64;
+            List<long> minRangeLocations = new();
+
+            int[] seedsRangeIterations = new int[seeds.Length / 2];
+            for (int i=0; i < seeds.Length / 2; i++)
+            {
+                seedsRangeIterations[i] = (int)MathF.Ceiling(seeds[i*2+1] / (arrayLength*threadCount));
+            }
+            int totalIterations = seedsRangeIterations.Sum();
+            int currentIteration = 1;
+            Stopwatch timer = new();
+
+            for (int i=0; i < seeds.Length/2; i++)
+            {
+                for (int j=0; j < seedsRangeIterations[i]; j++)
                 {
-                    expandedSeeds.Add(rangeStart + j);
+                    timer.Restart();
+                    Task<long[]>[] tasks = new Task<long[]>[threadCount];
+                    for (int l = 0; l < threadCount; l++)
+                    {
+                        long[] expandedSeeds = new long[arrayLength];
+
+                        if (j == seedsRangeIterations.Length - 1)
+                        {
+                            expandedSeeds = new long[(arrayLength * (seedsRangeIterations[i] - 1)) - seeds[i * 2 + 1]];
+                        }
+
+                        for (int k = 0; k < expandedSeeds.Length; k++)
+                        {
+                            expandedSeeds[k] = (seeds[i * 2] + arrayLength * (j)) + (k);
+                        }
+
+                        tasks[l] = new Task<long[]>(() => ProcessSeeds(expandedSeeds, problemSections));
+                        tasks[l].Start();
+                    }
+
+                    _logger.LogAsync(LogSeverity.Info, this, $"Starting processing of range {currentIteration}/{totalIterations} with {threadCount} threads");
+
+                    Task.WaitAll(tasks);
+
+                    minRangeLocations.Add(tasks.Min(x => x.Result.Min()));
+
+                    long currentMemory = Process.GetCurrentProcess().PrivateMemorySize64;
+                    long memoryDifference = currentMemory - startingMemory;
+
+                    double memoryGB = MathF.Round(memoryDifference / 1024 / 1024 / 1024, 3);
+                    _logger.LogAsync(LogSeverity.Info, this, $"Processed seed range {currentIteration}/{totalIterations} with {memoryGB}GB in {timer.Elapsed.Minutes}m {timer.Elapsed.Seconds}s");
+
+                    for (int l = 0; l < tasks.Length; l++) tasks[l].Dispose();
+                    tasks = null;
+                    GC.Collect();
+                    currentIteration++;
                 }
             }
 
-            seeds = ProcessSeeds(seeds, problemSections);
-
-            return new(seeds.Min().ToString());
+            timer.Stop();
+            _logger.LogAsync(LogSeverity.Info, this, $"Im sorry CPU");
+            return new(seeds.Min().ToString(), minRangeLocations.Min().ToString());
         }
 
-        public List<long> ProcessSeeds(List<long> seeds, string[] problemSections)
+        public long[] ProcessSeeds(long[] seeds, string[] problemSections)
         {
             for (int i = 1; i < problemSections.Length; i++)
             {
                 //Split into lines then take the numbers from those lines for seed processing
                 string[] mapLines = problemSections[i].Split("\n");
 
-                long[] processedSeeds = new long[seeds.Count];
                 for (int j = 1; j < mapLines.Length; j++)
                 {
                     //0 - dest start; 1 - source start; 2 - range length
                     long[] map = mapLines[j].Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(x => long.Parse(x)).ToArray();
                     long mapEnd = map[1] + map[2] - 1;
 
-                    long[] seedsInRange = seeds.Where(x => x >= map[1] && x <= mapEnd).ToArray();
-                    for (int k = 0; k < seedsInRange.Length; k++)
+                    for (int k = 0; k < seeds.Length; k++)
                     {
-                        long diff = seedsInRange[k] - map[1];
-                        int index = seeds.IndexOf(seedsInRange[k]);
+                        if (!(seeds[k] >= map[1] && seeds[k] <= mapEnd)) continue;
 
-                        processedSeeds[index] = map[0] + diff;
+                        long diff = seeds[k] - map[1];
+                        seeds[k] = map[0] + diff;
                     }
                 }
-
-                //Copy over the seeds that havent been processed
-                for (int j = 0; j < seeds.Count; j++)
-                {
-                    if (processedSeeds[j] != 0) continue;
-
-                    processedSeeds[j] = seeds[j];
-                }
-
-                seeds.Clear();
-                seeds.AddRange(processedSeeds);
             }
             return seeds;
         }

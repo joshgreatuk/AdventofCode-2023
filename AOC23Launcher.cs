@@ -50,8 +50,8 @@ namespace AOC23
                 return;
             }
             string problemContent = File.ReadAllText(path);
-            long elapsedTotal = stopWatch.ElapsedMilliseconds;
-            await _logger.LogAsync(LogSeverity.Info, this, $"Initialized solution in {stopWatch.ElapsedMilliseconds}ms");
+            TimeSpan elapsedTotal = stopWatch.Elapsed;
+            await _logger.LogAsync(LogSeverity.Info, this, $"Initialized solution in {ParseTimer(stopWatch)}");
             await _logger.LogAsync(LogSeverity.Info, this, $"Solving problem");
 
             //Run solution
@@ -69,8 +69,17 @@ namespace AOC23
             stopWatch.Stop();
             await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result pt1 : {result.partOne}");
             await _logger.LogAsync(LogSeverity.Info, this, $"Solution returned result pt2 : {result.partTwo}");
-            await _logger.LogAsync(LogSeverity.Info, this, $"Solution completed in {stopWatch.ElapsedMilliseconds-elapsedTotal}ms");
-            await _logger.LogAsync(LogSeverity.Info, this, $"Launcher completed in {stopWatch.ElapsedMilliseconds}ms");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Solution completed in {ParseTimer(stopWatch, elapsedTotal)}");
+            await _logger.LogAsync(LogSeverity.Info, this, $"Launcher completed in {ParseTimer(stopWatch)}");
+        }
+
+        public string ParseTimer(Stopwatch watch, TimeSpan? elapsedTotal=null)
+        {
+            TimeSpan elapsed = watch.Elapsed - (elapsedTotal != null ? (TimeSpan)elapsedTotal : TimeSpan.Zero);
+            return elapsed.Milliseconds < 1000 ? $"{elapsed.Milliseconds}ms" :
+                elapsed.Seconds < 60 ? $"{elapsed.Seconds}s" :
+                elapsed.Minutes < 60 ? $"{elapsed.Minutes}m {elapsed.Seconds}s"
+                : $"{elapsed.Hours}h {elapsed.Minutes}m {elapsed.Seconds}s";
         }
 
         public void Shutdown()
