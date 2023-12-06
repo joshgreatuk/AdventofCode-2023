@@ -27,30 +27,29 @@ namespace AOC23.Solutions
             int[] possibilityTotals = new int[raceTimes.Length];
             for (int i = 0; i < raceTimes.Length; i++)
             {
-                for (int j = 0; j < raceTimes[i]; j++)
-                {
-                    int distance = (raceTimes[i] - j) * j;
-                    if (distance <= raceRecords[i]) continue;
-
-                    possibilityTotals[i]++;
-                }
+                possibilityTotals[i] = RunRace(raceTimes[i], raceRecords[i]);
             }
 
             _logger.LogAsync(LogSeverity.Info, this, $"Oh wait. . . Its only 1 race! Going around!");
             long raceTime = ParseRaceArray(raceTimes);
             long raceRecord = ParseRaceArray(raceRecords);
+            int possibilityTotal = RunRace(raceTime, raceRecord, 14);
+
+            _logger.LogAsync(LogSeverity.Info, this, "Did we win?");
+            return new(possibilityTotals.Aggregate((x, n) => x *= n).ToString(), possibilityTotal.ToString());
+        }
+
+        public int RunRace(long raceTime, long raceRecord, int minimumHold=1)
+        {
             int possibilityTotal = 0;
-            for (int i=14; i < raceTime; i++)
+            for (int i = minimumHold-1; i < raceTime; i++)
             {
                 long distance = (raceTime - i) * i;
                 if (distance <= raceRecord) continue;
 
                 possibilityTotal++;
             }
-
-
-            _logger.LogAsync(LogSeverity.Info, this, "Did we win?");
-            return new(possibilityTotals.Aggregate((x, n) => x *= n).ToString(), possibilityTotal.ToString());
+            return possibilityTotal;
         }
 
         public int[] ParseRaceLine(string line) => line
