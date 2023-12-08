@@ -24,7 +24,7 @@ namespace AOC23
             _logger = new InnoLogger();
         }
 
-        private readonly Type _solutionTarget = typeof(Day7);
+        private readonly Type _solutionTarget = typeof(Day8);
         private Solution solution;
 
         public async Task MainAsync()
