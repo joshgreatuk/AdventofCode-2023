@@ -24,7 +24,7 @@ namespace AOC23
             _logger = new InnoLogger();
         }
 
-        private readonly Type _solutionTarget = typeof(Day8);
+        private readonly Type _solutionTarget = typeof(Day9);
         private Solution solution;
 
         public async Task MainAsync()
@@ -73,7 +73,7 @@ namespace AOC23
             await _logger.LogAsync(LogSeverity.Info, this, $"Launcher completed in {ParseTimer(stopWatch)}");
         }
 
-        public string ParseTimer(Stopwatch watch, TimeSpan? elapsedTotal=null)
+        public static string ParseTimer(Stopwatch watch, TimeSpan? elapsedTotal=null)
         {
             TimeSpan elapsed = watch.Elapsed - (elapsedTotal != null ? (TimeSpan)elapsedTotal : TimeSpan.Zero);
             return elapsed.Milliseconds < 1000 ? $"{elapsed.Milliseconds}ms" :

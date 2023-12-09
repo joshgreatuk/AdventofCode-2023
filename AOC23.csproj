@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="bin\Debug\net6.0\Problems\" />
   </ItemGroup>
 
 </Project>
